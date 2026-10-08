@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LZ_VERSION', '1.0.0' );
+define( 'LZ_VERSION', '1.2.0' );
 
 require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/contact-form.php';
@@ -109,6 +109,23 @@ function lz_schema() {
 add_action( 'wp_head', 'lz_schema' );
 
 /**
+ * Abschnitte der Startseite (für die Punkte in der Seitenleiste).
+ */
+function lz_sections() {
+	return array(
+		'start'      => __( 'Start', 'lynnzeischke' ),
+		'probleme'   => __( 'Kennen Sie das?', 'lynnzeischke' ),
+		'leistungen' => __( 'Leistungen', 'lynnzeischke' ),
+		'fuer-wen'   => __( 'Für wen', 'lynnzeischke' ),
+		'pakete'     => __( 'Pakete', 'lynnzeischke' ),
+		'ablauf'     => __( 'Ablauf', 'lynnzeischke' ),
+		'ueber-mich' => __( 'Über mich', 'lynnzeischke' ),
+		'faq'        => __( 'FAQ', 'lynnzeischke' ),
+		'kontakt'    => __( 'Kontakt', 'lynnzeischke' ),
+	);
+}
+
+/**
  * Fallback-Menü, solange unter Design → Menüs noch nichts angelegt ist.
  * Verlinkt die Abschnitte der Startseite.
  */
@@ -116,15 +133,17 @@ function lz_fallback_menu() {
 	$home  = is_front_page() ? '' : home_url( '/' );
 	$items = array(
 		'#leistungen' => __( 'Leistungen', 'lynnzeischke' ),
-		'#pakete'     => __( 'Pakete & Preise', 'lynnzeischke' ),
+		'#pakete'     => __( 'Pakete', 'lynnzeischke' ),
+		'#ablauf'     => __( 'Ablauf', 'lynnzeischke' ),
 		'#ueber-mich' => __( 'Über mich', 'lynnzeischke' ),
-		'#faq'        => __( 'Fragen', 'lynnzeischke' ),
+		'#faq'        => __( 'FAQ', 'lynnzeischke' ),
+		'#kontakt'    => __( 'Kontakt', 'lynnzeischke' ),
 	);
 	echo '<ul>';
 	foreach ( $items as $anchor => $label ) {
 		printf( '<li><a href="%s">%s</a></li>', esc_url( $home . $anchor ), esc_html( $label ) );
 	}
-	printf( '<li class="nav-cta"><a href="%s">%s</a></li>', esc_url( $home . '#kontakt' ), esc_html__( 'Erstgespräch', 'lynnzeischke' ) );
+	printf( '<li class="nav-cta"><a href="%s">%s</a></li>', esc_url( $home . '#kontakt' ), esc_html__( 'Kostenloses Erstgespräch', 'lynnzeischke' ) );
 	echo '</ul>';
 }
 
@@ -140,6 +159,9 @@ function lz_icon( $name ) {
 		'web'     => '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/>',
 		'team'    => '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14.5c2.2 0 4 1.5 4.5 4"/>',
 		'chart'   => '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+		'phone'   => '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/>',
+		'mail'    => '<rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/>',
+		'globe'   => '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
 		'handout' => '<path d="M4 4h16v12H8l-4 4z"/>',
 	);
 	if ( ! isset( $icons[ $name ] ) ) {

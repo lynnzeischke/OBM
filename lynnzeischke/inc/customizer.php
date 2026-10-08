@@ -14,14 +14,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function lz_defaults() {
 	return array(
-		'email'            => get_option( 'admin_email' ),
-		'phone'            => '',
-		'region'           => 'Künzelsau, Hohenlohe & Umgebung',
+		'email'            => 'hallo@lynnzeischke.de',
+		'phone'            => '+49 172 58 611 60',
+		'whatsapp'         => true,
+		'brand_sub'        => 'Beratung für Handwerksbetriebe',
+		'hero_eyebrow'     => 'Beratung für Handwerksbetriebe · Remote · Deutschlandweit',
+		'hero_badge'       => 'Steuerfachangestellte · M.Sc. Digital Commerce, Marketing & Psychologie · Co-Founderin mit eigener Praxiserfahrung',
+		'region'           => 'Remote · deutschlandweit',
 		'calendly_url'     => '',
-		'call_times'       => 'Gut erreichbar vormittags und am frühen Nachmittag – gern auch an Ihrem Ruhetag.',
+		'call_times'       => 'Erstgespräch kostenfrei & unverbindlich – per Telefon oder Video.',
 		'hero_image'       => 0,
 		'about_image'      => 0,
-		'meta_description' => 'Buchhaltung, Google-Profil, Homepage und Personal für Handwerksbetriebe und Gastronomie – aus einer Hand, zum Festpreis. Kostenloses Erstgespräch mit Lynn Zeischke.',
+		'meta_description' => 'Weniger Büro. Mehr Zeit fürs Handwerk. Kaufmännische Beratung & operative Umsetzung für Handwerksbetriebe – von Website & Marketing über digitale Büroabläufe bis zur vorbereitenden Buchhaltung. Remote, deutschlandweit.',
 	);
 }
 
@@ -54,7 +58,10 @@ function lz_customize_register( $wp_customize ) {
 
 	$text_fields = array(
 		'email'            => array( __( 'E-Mail (Empfänger Kontaktformular)', 'lynnzeischke' ), 'sanitize_email', 'email' ),
-		'phone'            => array( __( 'Telefon', 'lynnzeischke' ), 'sanitize_text_field', 'text' ),
+		'phone'            => array( __( 'Telefon (auch für WhatsApp)', 'lynnzeischke' ), 'sanitize_text_field', 'text' ),
+		'brand_sub'        => array( __( 'Unterzeile neben dem Logo', 'lynnzeischke' ), 'sanitize_text_field', 'text' ),
+		'hero_eyebrow'     => array( __( 'Kasten über der großen Überschrift', 'lynnzeischke' ), 'sanitize_text_field', 'text' ),
+		'hero_badge'       => array( __( 'Dunkler Kasten auf dem Foto (Qualifikationen)', 'lynnzeischke' ), 'sanitize_textarea_field', 'textarea' ),
 		'region'           => array( __( 'Region / Einzugsgebiet', 'lynnzeischke' ), 'sanitize_text_field', 'text' ),
 		'calendly_url'     => array( __( 'Link zur Online-Terminbuchung (z. B. Calendly) – optional', 'lynnzeischke' ), 'esc_url_raw', 'url' ),
 		'call_times'       => array( __( 'Hinweis Erreichbarkeit', 'lynnzeischke' ), 'sanitize_text_field', 'text' ),
@@ -78,6 +85,22 @@ function lz_customize_register( $wp_customize ) {
 			)
 		);
 	}
+
+	$wp_customize->add_setting(
+		'lz_whatsapp',
+		array(
+			'default'           => true,
+			'sanitize_callback' => 'wp_validate_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'lz_whatsapp',
+		array(
+			'label'   => __( 'WhatsApp-Button unten rechts anzeigen', 'lynnzeischke' ),
+			'section' => 'lz_settings',
+			'type'    => 'checkbox',
+		)
+	);
 
 	$images = array(
 		'hero_image'  => __( 'Foto oben auf der Startseite (Hochformat)', 'lynnzeischke' ),
@@ -111,5 +134,29 @@ add_action( 'customize_register', 'lz_customize_register' );
  */
 function lz_booking_url() {
 	$url = lz_opt( 'calendly_url' );
-	return $url ? $url : '#kontakt';
+	if ( $url ) {
+		return $url;
+	}
+	return is_front_page() ? '#kontakt' : home_url( '/#kontakt' );
+}
+
+/**
+ * Telefonnummer für tel:/wa.me-Links (nur Ziffern und +).
+ *
+ * @param string $phone Telefonnummer.
+ */
+function lz_phone_link( $phone ) {
+	return preg_replace( '/[^0-9+]/', '', $phone );
+}
+
+/**
+ * Telefonnummer in nationaler Schreibweise, z. B. „(0172) 58 611 60“.
+ *
+ * @param string $phone Telefonnummer.
+ */
+function lz_phone_display( $phone ) {
+	if ( preg_match( '/^\+?\s*49\s*(\d+)\s+(.*)$/', trim( $phone ), $m ) ) {
+		return '(0' . $m[1] . ') ' . $m[2];
+	}
+	return $phone;
 }

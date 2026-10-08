@@ -6,9 +6,11 @@ Eigenes Theme „Lynn Zeischke“ für die Webseite: Buchhaltung, Marketing und 
 
 - **Startseite als One-Pager** (`front-page.php`): Startbereich, „Kennen Sie das?“, Leistungen, Umschalter Handwerk/Gastronomie, Pakete & Preise, Über mich, Ablauf, Häufige Fragen, Kontakt
 - **Kontaktformular ohne Plugin** mit Spam-Schutz (unsichtbares Feld, Zeitsperre, max. 5 Anfragen pro Stunde) und Häkchen zur Datenschutz-Einwilligung
-- **Einstellungen im Customizer** (Design → Customizer → „Lynn Zeischke – Kontakt & Texte“): E-Mail, Telefon, Region, Calendly-Link, Fotos, Google-Beschreibung
+- **Einstellungen im Customizer** (Design → Customizer → „Lynn Zeischke – Kontakt & Texte“): E-Mail, Telefon/WhatsApp, Unterzeile, Hero-Kasten, Qualifikations-Box, Region, Calendly-Link, Fotos, Google-Beschreibung
 - Vorlagen für Seiten (Impressum/Datenschutz), Blog, Suche und 404
-- **DSGVO-freundlich:** keine Google Fonts, kein CDN, keine Emoji-Skripte von WordPress.org
+- **Design wie lynnzeischke.de:** dunkle Kopfzeile mit „LZ“-Logo, Seitenleiste links (Name, Abschnitts-Punkte, Telefonnummer), Gold `#daa84e`, Überschriften in IBM Plex Mono, Fließtext in Inter, eckige Buttons, Foto mit Goldrahmen und dunkler Qualifikations-Box, WhatsApp-Button
+- **Schalter „Bürolicht an/aus“** (hell/dunkel), die Wahl merkt sich der Browser
+- **DSGVO-freundlich:** Schriften liegen im Theme (`assets/fonts`, SIL Open Font License), keine Google Fonts, kein CDN, keine Emoji-Skripte von WordPress.org
 - schema.org-Daten für Google, für Handys optimiert, per Tastatur bedienbar
 
 ## Installation
@@ -23,4 +25,4 @@ Eigenes Theme „Lynn Zeischke“ für die Webseite: Buchhaltung, Marketing und 
 
 ## Texte anpassen
 
-Alle Texte der Startseite stehen in `lynnzeischke/front-page.php`. Farben stehen oben in `lynnzeischke/style.css` (`--c-primary`, `--c-accent`).
+Alle Texte der Startseite stehen in `lynnzeischke/front-page.php`. Farben stehen oben in `lynnzeischke/style.css` (`--c-gold`, `--c-chrome`, `--c-bg`; dunkle Variante unter `[data-theme="dark"]`).

@@ -15,40 +15,44 @@ $target    = $is_extern ? ' target="_blank" rel="noopener"' : '';
 ?>
 
 <!-- ================= HERO ================= -->
-<section class="hero">
+<section class="hero" id="start">
 	<div class="container">
 		<div>
-			<span class="eyebrow"><?php esc_html_e( 'Für Handwerk & Gastronomie', 'lynnzeischke' ); ?></span>
-			<h1><?php esc_html_e( 'Weniger Papierkram. Mehr Zeit für Ihren Betrieb.', 'lynnzeischke' ); ?></h1>
+			<span class="eyebrow"><?php echo esc_html( lz_opt( 'hero_eyebrow' ) ); ?></span>
+			<h1><?php esc_html_e( 'Weniger Büro.', 'lynnzeischke' ); ?> <span class="gold"><?php esc_html_e( 'Mehr Zeit fürs Handwerk.', 'lynnzeischke' ); ?></span></h1>
 			<p class="lead">
-				<?php esc_html_e( 'Ich kümmere mich um Belege, Google-Profil und Homepage – aus einer Hand und zum Festpreis. Damit Sie sich um Ihre Kunden und Gäste kümmern können und Ihr Wochenende wieder Ihnen gehört.', 'lynnzeischke' ); ?>
+				<?php esc_html_e( 'Ich unterstütze Handwerksbetriebe bei kaufmännischer Organisation, Prozessen und administrativen Aufgaben – unkompliziert, digital und praxisnah. Alles aus einer Hand, persönlich und individuell ausgerichtet.', 'lynnzeischke' ); ?>
 			</p>
 			<div class="hero-actions">
-				<a class="btn btn-primary" href="<?php echo esc_url( $booking ); ?>"<?php echo $target; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php esc_html_e( 'Kostenloses Erstgespräch', 'lynnzeischke' ); ?></a>
-				<a class="btn btn-ghost" href="#pakete"><?php esc_html_e( 'Pakete & Preise ansehen', 'lynnzeischke' ); ?></a>
+				<a class="btn btn-primary" href="<?php echo esc_url( $booking ); ?>"<?php echo $target; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php esc_html_e( 'Kostenloses Erstgespräch', 'lynnzeischke' ); ?> <span class="arrow" aria-hidden="true">→</span></a>
+				<a class="btn btn-ghost" href="#leistungen"><?php esc_html_e( 'Leistungen ansehen', 'lynnzeischke' ); ?></a>
 			</div>
 			<ul class="trust-list">
 				<li><?php esc_html_e( 'Ein fester Ansprechpartner', 'lynnzeischke' ); ?></li>
-				<li><?php esc_html_e( 'Festpreise ohne Überraschungen', 'lynnzeischke' ); ?></li>
+				<li><?php esc_html_e( 'Festpreise', 'lynnzeischke' ); ?></li>
 				<li><?php esc_html_e( 'Kein Abo, keine Mindestlaufzeit', 'lynnzeischke' ); ?></li>
 			</ul>
 		</div>
 		<div class="hero-photo">
-			<?php if ( lz_opt( 'hero_image' ) ) : ?>
-				<?php echo wp_get_attachment_image( lz_opt( 'hero_image' ), 'large', false, array( 'alt' => 'Lynn Zeischke', 'fetchpriority' => 'high' ) ); ?>
-			<?php else : ?>
-				<div class="placeholder"><?php esc_html_e( 'Foto hinzufügen unter Design → Customizer → „Lynn Zeischke – Kontakt & Texte“', 'lynnzeischke' ); ?></div>
-			<?php endif; ?>
-			<div class="hero-badge">
-				<strong><?php esc_html_e( 'Aus der Praxis, nicht aus dem Lehrbuch', 'lynnzeischke' ); ?></strong>
-				<?php esc_html_e( 'Selbst einen Biergarten mit 40 Leuten mit aufgebaut.', 'lynnzeischke' ); ?>
+			<div class="frame">
+				<?php if ( lz_opt( 'hero_image' ) ) : ?>
+					<?php echo wp_get_attachment_image( lz_opt( 'hero_image' ), 'large', false, array( 'alt' => 'Lynn Zeischke', 'fetchpriority' => 'high' ) ); ?>
+				<?php else : ?>
+					<div class="placeholder">
+						<span class="lz-mark" aria-hidden="true">LZ</span>
+						<?php esc_html_e( 'Foto hinzufügen unter Design → Customizer → „Lynn Zeischke – Kontakt & Texte“', 'lynnzeischke' ); ?>
+					</div>
+				<?php endif; ?>
 			</div>
+			<?php if ( lz_opt( 'hero_badge' ) ) : ?>
+				<div class="hero-badge"><?php echo esc_html( lz_opt( 'hero_badge' ) ); ?></div>
+			<?php endif; ?>
 		</div>
 	</div>
 </section>
 
 <!-- ================= KENNEN SIE DAS? ================= -->
-<section class="section section-alt">
+<section class="section section-alt" id="probleme">
 	<div class="container">
 		<div class="section-head center">
 			<span class="eyebrow"><?php esc_html_e( 'Kennen Sie das?', 'lynnzeischke' ); ?></span>
@@ -220,34 +224,8 @@ $target    = $is_extern ? ' target="_blank" rel="noopener"' : '';
 	</div>
 </section>
 
-<!-- ================= ÜBER MICH ================= -->
-<section class="section section-dark" id="ueber-mich">
-	<div class="container about">
-		<div class="about-photo">
-			<?php
-			if ( lz_opt( 'about_image' ) ) {
-				echo wp_get_attachment_image( lz_opt( 'about_image' ), 'large', false, array( 'alt' => 'Lynn Zeischke', 'loading' => 'lazy' ) );
-			}
-			?>
-		</div>
-		<div>
-			<span class="eyebrow"><?php esc_html_e( 'Über mich', 'lynnzeischke' ); ?></span>
-			<h2><?php esc_html_e( 'Hallo, ich bin Lynn.', 'lynnzeischke' ); ?></h2>
-			<p class="lead"><?php esc_html_e( 'Ich weiß, wie es ist, wenn der Laden brummt und das Büro liegen bleibt – weil ich es selbst erlebt habe.', 'lynnzeischke' ); ?></p>
-			<p><?php esc_html_e( 'Als Mitgründerin des Biergartens am Kocher in Künzelsau war ich für Kasse, Buchhaltung, Dienstplanung, Personal, Speisekarten-Kalkulation und Marketing verantwortlich. Davor habe ich jahrelang im Service und an der Bar gearbeitet.', 'lynnzeischke' ); ?></p>
-			<p><?php esc_html_e( 'Heute bringe ich genau diese Erfahrung in Handwerksbetriebe und Gastronomie: praktisch, ohne Berater-Sprech und mit einem Preis, der vorher feststeht.', 'lynnzeischke' ); ?></p>
-			<div class="facts">
-				<div class="fact"><strong>40</strong><span><?php esc_html_e( 'Mitarbeitende im eigenen Biergarten geführt', 'lynnzeischke' ); ?></span></div>
-				<div class="fact"><strong>1,5 Mio. €</strong><span><?php esc_html_e( 'Umsatz im ersten Geschäftsjahr', 'lynnzeischke' ); ?></span></div>
-				<div class="fact"><strong>1</strong><span><?php esc_html_e( 'Ansprechpartnerin für alles', 'lynnzeischke' ); ?></span></div>
-			</div>
-			<a class="btn btn-primary" href="<?php echo esc_url( $booking ); ?>"<?php echo $target; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php esc_html_e( 'Lernen wir uns kennen', 'lynnzeischke' ); ?></a>
-		</div>
-	</div>
-</section>
-
 <!-- ================= ABLAUF ================= -->
-<section class="section" id="ablauf">
+<section class="section section-alt" id="ablauf">
 	<div class="container">
 		<div class="section-head center">
 			<span class="eyebrow"><?php esc_html_e( 'So läuft es ab', 'lynnzeischke' ); ?></span>
@@ -270,8 +248,37 @@ $target    = $is_extern ? ' target="_blank" rel="noopener"' : '';
 	</div>
 </section>
 
+<!-- ================= ÜBER MICH ================= -->
+<section class="section section-dark" id="ueber-mich">
+	<div class="container about">
+		<div class="about-photo">
+			<?php
+			if ( lz_opt( 'about_image' ) ) {
+				echo wp_get_attachment_image( lz_opt( 'about_image' ), 'large', false, array( 'alt' => 'Lynn Zeischke', 'loading' => 'lazy' ) );
+			} else {
+				echo '<span class="lz-mark" aria-hidden="true">LZ</span>';
+			}
+			?>
+		</div>
+		<div>
+			<span class="eyebrow"><?php esc_html_e( 'Über mich', 'lynnzeischke' ); ?></span>
+			<h2><?php esc_html_e( 'Hallo, ich bin Lynn.', 'lynnzeischke' ); ?></h2>
+			<p class="lead"><?php esc_html_e( 'Ich weiß, wie es ist, wenn der Laden brummt und das Büro liegen bleibt – weil ich es selbst erlebt habe.', 'lynnzeischke' ); ?></p>
+			<p><?php esc_html_e( 'Ich bin gelernte Steuerfachangestellte und habe einen M.Sc. in Digital Commerce, Marketing & Psychologie. Zahlen und Online-Auftritt kommen bei mir also aus einer Hand.', 'lynnzeischke' ); ?></p>
+			<p><?php esc_html_e( 'Als Mitgründerin des Biergartens am Kocher in Künzelsau war ich für Kasse, Buchhaltung, Dienstplanung, Personal, Speisekarten-Kalkulation und Marketing verantwortlich. Davor habe ich jahrelang im Service und an der Bar gearbeitet.', 'lynnzeischke' ); ?></p>
+			<p><?php esc_html_e( 'Heute bringe ich genau diese Erfahrung in Handwerksbetriebe: praktisch, ohne Berater-Sprech und mit einem Preis, der vorher feststeht.', 'lynnzeischke' ); ?></p>
+			<div class="facts">
+				<div class="fact"><strong>40</strong><span><?php esc_html_e( 'Mitarbeitende im eigenen Biergarten geführt', 'lynnzeischke' ); ?></span></div>
+				<div class="fact"><strong>1,5 Mio. €</strong><span><?php esc_html_e( 'Umsatz im ersten Geschäftsjahr', 'lynnzeischke' ); ?></span></div>
+				<div class="fact"><strong>1</strong><span><?php esc_html_e( 'Ansprechpartnerin für alles', 'lynnzeischke' ); ?></span></div>
+			</div>
+			<a class="btn btn-primary" href="<?php echo esc_url( $booking ); ?>"<?php echo $target; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php esc_html_e( 'Lernen wir uns kennen', 'lynnzeischke' ); ?></a>
+		</div>
+	</div>
+</section>
+
 <!-- ================= FAQ ================= -->
-<section class="section section-alt" id="faq">
+<section class="section" id="faq">
 	<div class="container">
 		<div class="section-head center">
 			<span class="eyebrow"><?php esc_html_e( 'Häufige Fragen', 'lynnzeischke' ); ?></span>
@@ -295,32 +302,32 @@ $target    = $is_extern ? ' target="_blank" rel="noopener"' : '';
 				<div><?php esc_html_e( 'Das höre ich oft. Deshalb gibt es die ehrliche Bestandsaufnahme für 450 €: Ich schaue mir alles an und sage Ihnen offen, was sich lohnt. Danach entscheiden Sie in Ruhe.', 'lynnzeischke' ); ?></div>
 			</details>
 			<details>
-				<summary><?php esc_html_e( 'Arbeiten Sie auch außerhalb Ihrer Region?', 'lynnzeischke' ); ?></summary>
-				<div><?php echo esc_html( sprintf( /* translators: %s: Region */ __( 'Vor Ort bin ich in %s. Vieles lässt sich aber auch gut per Telefon und Video erledigen – sprechen Sie mich einfach an.', 'lynnzeischke' ), lz_opt( 'region' ) ) ); ?></div>
+				<summary><?php esc_html_e( 'Geht das auch, wenn Sie nicht bei mir um die Ecke sind?', 'lynnzeischke' ); ?></summary>
+				<div><?php esc_html_e( 'Ja. Ich arbeite remote und deutschlandweit – per Telefon, Video und gemeinsamen Online-Ordnern. Sie müssen dafür nichts installieren, ich richte alles mit Ihnen ein.', 'lynnzeischke' ); ?></div>
 			</details>
 		</div>
 	</div>
 </section>
 
 <!-- ================= KONTAKT ================= -->
-<section class="section section-dark" id="kontakt">
+<section class="section section-gold" id="kontakt">
 	<div class="container contact">
 		<div class="contact-info">
 			<span class="eyebrow"><?php esc_html_e( 'Kontakt', 'lynnzeischke' ); ?></span>
 			<h2><?php esc_html_e( 'Erzählen Sie mir, wo es hakt.', 'lynnzeischke' ); ?></h2>
-			<p class="lead"><?php esc_html_e( 'Das Erstgespräch ist kostenfrei und unverbindlich. Ich melde mich innerhalb von zwei Werktagen.', 'lynnzeischke' ); ?></p>
-			<ul class="check-list">
+			<p class="lead"><?php esc_html_e( 'Online sichtbar werden. Büroarbeit vereinfachen. Zeit fürs Kerngeschäft gewinnen. Das Erstgespräch ist kostenfrei & unverbindlich.', 'lynnzeischke' ); ?></p>
+			<ul class="contact-lines">
 				<?php if ( lz_opt( 'phone' ) ) : ?>
-					<li><a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', lz_opt( 'phone' ) ) ); ?>"><?php echo esc_html( lz_opt( 'phone' ) ); ?></a></li>
+					<li><?php echo lz_icon( 'phone' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><a href="tel:<?php echo esc_attr( lz_phone_link( lz_opt( 'phone' ) ) ); ?>"><?php echo esc_html( lz_opt( 'phone' ) ); ?></a></li>
 				<?php endif; ?>
 				<?php if ( lz_opt( 'email' ) ) : ?>
-					<li><a href="mailto:<?php echo esc_attr( antispambot( lz_opt( 'email' ) ) ); ?>"><?php echo esc_html( antispambot( lz_opt( 'email' ) ) ); ?></a></li>
+					<li><?php echo lz_icon( 'mail' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><a href="mailto:<?php echo esc_attr( antispambot( lz_opt( 'email' ) ) ); ?>"><?php echo esc_html( antispambot( lz_opt( 'email' ) ) ); ?></a></li>
 				<?php endif; ?>
-				<li><?php echo esc_html( lz_opt( 'region' ) ); ?></li>
-				<li><?php echo esc_html( lz_opt( 'call_times' ) ); ?></li>
+				<li><?php echo lz_icon( 'globe' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php echo esc_html( lz_opt( 'region' ) ); ?></li>
 			</ul>
+			<p class="contact-note"><?php echo esc_html( lz_opt( 'call_times' ) ); ?></p>
 			<?php if ( $is_extern ) : ?>
-				<p><a class="btn btn-primary" href="<?php echo esc_url( $booking ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Termin direkt online buchen', 'lynnzeischke' ); ?></a></p>
+				<p><a class="btn btn-ghost" href="<?php echo esc_url( $booking ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Termin direkt online buchen', 'lynnzeischke' ); ?></a></p>
 			<?php endif; ?>
 		</div>
 
