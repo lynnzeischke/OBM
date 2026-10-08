@@ -1,24 +1,46 @@
 <?php
 /**
- * Fußbereich mit WhatsApp-Button.
+ * Fußbereich mit Seitenübersicht, Rechtlichem und WhatsApp-Button.
  *
  * @package lynnzeischke
  */
 
+$lz_blog = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
 ?>
 </main>
 
 <footer class="site-footer">
-	<div class="container">
+	<div class="container footer-grid">
 		<div class="footer-brand">
 			<span class="lz-mark" aria-hidden="true">LZ</span>
 			<div>
-				<strong>Lynn Zeischke</strong><br>
-				<?php echo esc_html( lz_opt( 'brand_sub' ) ); ?><br>
-				<?php echo esc_html( lz_opt( 'region' ) ); ?>
+				<strong>Lynn Zeischke</strong>
+				<p><?php esc_html_e( 'Kaufmännische Beratung & operative Umsetzung. Online sichtbar werden. Büroarbeit vereinfachen. Zeit fürs Kerngeschäft gewinnen.', 'lynnzeischke' ); ?></p>
 			</div>
 		</div>
+		<nav aria-label="<?php esc_attr_e( 'Seiten', 'lynnzeischke' ); ?>">
+			<p class="footer-title"><?php esc_html_e( 'Für wen', 'lynnzeischke' ); ?></p>
+			<ul>
+				<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'KMU & Selbstständige', 'lynnzeischke' ); ?></a></li>
+				<li><a href="<?php echo esc_url( home_url( '/handwerk/' ) ); ?>"><?php esc_html_e( 'Handwerk', 'lynnzeischke' ); ?></a></li>
+				<li><a href="<?php echo esc_url( home_url( '/gastro/' ) ); ?>"><?php esc_html_e( 'Gastronomie', 'lynnzeischke' ); ?></a></li>
+				<li><a href="<?php echo esc_url( $lz_blog ); ?>"><?php esc_html_e( 'Blog', 'lynnzeischke' ); ?></a></li>
+			</ul>
+		</nav>
+		<div>
+			<p class="footer-title"><?php esc_html_e( 'Kontakt', 'lynnzeischke' ); ?></p>
+			<ul>
+				<?php if ( lz_opt( 'phone' ) ) : ?>
+					<li><a href="tel:<?php echo esc_attr( lz_phone_link( lz_opt( 'phone' ) ) ); ?>"><?php echo esc_html( lz_opt( 'phone' ) ); ?></a></li>
+				<?php endif; ?>
+				<?php if ( lz_opt( 'email' ) ) : ?>
+					<li><a href="mailto:<?php echo esc_attr( antispambot( lz_opt( 'email' ) ) ); ?>"><?php echo esc_html( antispambot( lz_opt( 'email' ) ) ); ?></a></li>
+				<?php endif; ?>
+				<li><?php echo esc_html( lz_opt( 'region' ) ); ?></li>
+			</ul>
+		</div>
 		<nav aria-label="<?php esc_attr_e( 'Rechtliches', 'lynnzeischke' ); ?>">
+			<p class="footer-title"><?php esc_html_e( 'Rechtliches', 'lynnzeischke' ); ?></p>
 			<?php
 			if ( has_nav_menu( 'footer' ) ) {
 				wp_nav_menu(
@@ -31,7 +53,7 @@
 			} else {
 				$lz_impressum = get_page_by_path( 'impressum' );
 				echo '<ul>';
-				if ( $lz_impressum ) {
+				if ( $lz_impressum && 'publish' === $lz_impressum->post_status ) {
 					printf( '<li><a href="%s">%s</a></li>', esc_url( get_permalink( $lz_impressum ) ), esc_html__( 'Impressum', 'lynnzeischke' ) );
 				}
 				if ( get_privacy_policy_url() ) {
@@ -41,7 +63,10 @@
 			}
 			?>
 		</nav>
-		<div>&copy; <?php echo esc_html( wp_date( 'Y' ) ); ?> Lynn Zeischke</div>
+	</div>
+	<div class="container footer-bottom">
+		<span>&copy; <?php echo esc_html( wp_date( 'Y' ) ); ?> Lynn Zeischke</span>
+		<a href="#inhalt" class="to-top"><?php esc_html_e( 'Nach oben', 'lynnzeischke' ); ?> ↑</a>
 	</div>
 </footer>
 

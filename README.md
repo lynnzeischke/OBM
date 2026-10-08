@@ -1,28 +1,68 @@
 # WordPress-Theme für lynnzeischke.de
 
-Eigenes Theme „Lynn Zeischke“ für die Webseite: Buchhaltung, Marketing und Webdesign für Handwerk und Gastronomie.
+Eigenes Theme „Lynn Zeischke“: kaufmännische Beratung & operative Umsetzung für KMU, Handwerk und Gastronomie.
 
-## Was drin ist
+## Seiten
 
-- **Startseite als One-Pager** (`front-page.php`): Startbereich, „Kennen Sie das?“, Leistungen, Umschalter Handwerk/Gastronomie, Pakete & Preise, Über mich, Ablauf, Häufige Fragen, Kontakt
-- **Kontaktformular ohne Plugin** mit Spam-Schutz (unsichtbares Feld, Zeitsperre, max. 5 Anfragen pro Stunde) und Häkchen zur Datenschutz-Einwilligung
-- **Einstellungen im Customizer** (Design → Customizer → „Lynn Zeischke – Kontakt & Texte“): E-Mail, Telefon/WhatsApp, Unterzeile, Hero-Kasten, Qualifikations-Box, Region, Calendly-Link, Fotos, Google-Beschreibung
-- Vorlagen für Seiten (Impressum/Datenschutz), Blog, Suche und 404
-- **Design wie lynnzeischke.de:** dunkle Kopfzeile mit „LZ“-Logo, Seitenleiste links (Name, Abschnitts-Punkte, Telefonnummer), Gold `#daa84e`, Überschriften in IBM Plex Mono, Fließtext in Inter, eckige Buttons, Foto mit Goldrahmen und dunkler Qualifikations-Box, WhatsApp-Button
-- **Schalter „Bürolicht an/aus“** (hell/dunkel), die Wahl merkt sich der Browser
-- **DSGVO-freundlich:** Schriften liegen im Theme (`assets/fonts`, SIL Open Font License), keine Google Fonts, kein CDN, keine Emoji-Skripte von WordPress.org
-- schema.org-Daten für Google, für Handys optimiert, per Tastatur bedienbar
+| Adresse | Inhalt | Datei |
+|---|---|---|
+| `/` | Startseite für KMU allgemein, Einstieg zu Handwerk und Gastro | `front-page.php` |
+| `/handwerk/` | Landingpage Handwerk (Pakete, E-Rechnung, Übergabe …) | `page-handwerk.php` |
+| `/gastro/` | Landingpage Gastronomie (Kasse, Wareneinsatz, Dienstplan …) | `page-gastro.php` |
+| `/blog/` | Blog mit Kategorie-Filter und Suche | `home.php` |
+| Artikel | Inhaltsverzeichnis, Lesezeit, Teilen, Autorenbox, passender Aufruf, ähnliche Artikel | `single.php` |
+| Kategorien, Suche, 404 | | `archive.php`, `search.php`, `404.php` |
+
+**Alle Texte der drei Landingpages stehen in `lynnzeischke/inc/content.php`.** Jede Seite ist eine Liste von Abschnitten (Hero, Laufband, Probleme, Leistungen, Pakete, Ablauf, Über mich, Blog, FAQ, Kontakt). Ausgegeben werden sie über `template-parts/section-*.php`. Text ändern → Datei speichern → fertig.
+
+Inhalte aus dem WordPress-Editor der Seiten „Handwerk“ und „Gastronomie“ erscheinen zusätzlich vor dem Kontaktbereich (optional).
+
+## Automatische Einrichtung beim Aktivieren
+
+- Seiten **Start**, **Handwerk** (`/handwerk`), **Gastronomie** (`/gastro`), **Blog** (`/blog`) und **Impressum** (Entwurf mit Platzhaltern)
+- Startseite und Blogseite unter *Einstellungen → Lesen* (nur, wenn noch keine statische Startseite gesetzt ist)
+- Sprechende Adressen `/%postname%/` (nur, wenn noch „Einfach“ eingestellt ist)
+- Blog-Kategorien **Handwerk**, **Gastronomie**, **KMU & Selbstständige**, jeweils mit SEO-Beschreibung
+- Drei Startartikel **als Entwurf**: E-Rechnung im Handwerk, Wareneinsatz in der Gastronomie, Google-Unternehmensprofil
+
+Bereits vorhandene Seiten, Kategorien und Artikel werden nicht überschrieben.
+
+## SEO
+
+- Eigener Seitentitel und eigene Meta-Beschreibung für jede Landingpage, für Blog, Kategorien und Artikel
+- Feld **„SEO (Google-Vorschau)“** im Editor jeder Seite und jedes Beitrags für eigenen Titel und eigene Beschreibung
+- Canonical-Links, Open Graph und Twitter Cards (Vorschau beim Teilen)
+- Strukturierte Daten (schema.org): Unternehmen (ProfessionalService), Person, WebSite mit Suche, Brotkrumen, **Leistung mit Paketpreisen**, **FAQ** und **BlogPosting**
+- Sichtbare Brotkrumen, eine H1 pro Seite, Sprungmarken an Zwischenüberschriften
+- Suche und 404 auf `noindex`; die XML-Sitemap von WordPress liegt unter `/wp-sitemap.xml`
+- Schnell: Schriften lokal und vorgeladen, ein CSS, ein JS (`defer`), keine externen Dienste
+- Ist Yoast, Rank Math, AIOSEO oder SEOPress aktiv, gibt das Theme keine eigenen SEO-Tags aus
+
+## Effekte
+
+Text in der Hero-Überschrift, der sich wie auf einer Schreibmaschine abwechselt · Einblenden beim Scrollen · hochzählende Zahlen · Laufband · Lichtschein auf Karten, der der Maus folgt · Raster und Foto, die sich mit der Maus bewegen · „magnetische“ Buttons · Fortschrittsleiste · kompakte Kopfzeile beim Scrollen · Seitenleiste mit Punkten für die Abschnitte · Schalter „Bürolicht an/aus“ (hell/dunkel)
+
+Bei „Bewegung reduzieren“ in den Systemeinstellungen sind alle Animationen aus. Ohne JavaScript ist alles sofort sichtbar.
 
 ## Installation
 
-1. ZIP bauen: `cd lynnzeischke/.. && zip -r lynnzeischke.zip lynnzeischke`
-2. In WordPress unter **Design → Themes → Theme hinzufügen → Theme hochladen** die ZIP-Datei hochladen und aktivieren.
-3. **Einstellungen → Lesen:** „Eine statische Seite“ wählen und als Startseite eine (leere) Seite „Start“ festlegen.
-4. **Seiten anlegen:** „Impressum“ (Titelform/URL `impressum`) und „Datenschutzerklärung“ (unter Einstellungen → Datenschutz als Datenschutzseite festlegen). Beide erscheinen dann automatisch im Footer.
-5. **Customizer:** E-Mail, Telefon, Fotos und ggf. Calendly-Link eintragen.
-6. **E-Mail-Versand:** Ein SMTP-Plugin (z. B. „WP Mail SMTP“) mit dem eigenen Postfach verbinden, sonst landen Formular-Anfragen leicht im Spam.
-7. Optional: Unter **Design → Menüs** eigene Menüs anlegen. Ohne Menü verlinkt der Kopfbereich automatisch die Abschnitte der Startseite.
+1. ZIP bauen: `zip -r lynnzeischke.zip lynnzeischke` (oder die fertige ZIP-Datei nutzen)
+2. **Design → Themes → Theme hinzufügen → Theme hochladen**, dann aktivieren. Die Einrichtung (siehe oben) läuft automatisch.
+3. **Impressum** ausfüllen und veröffentlichen, **Datenschutzerklärung** prüfen (Einstellungen → Datenschutz)
+4. **Design → Customizer → „Lynn Zeischke – Kontakt & Texte“:** Fotos, Telefon, E-Mail, ggf. Calendly-Link
+5. **Startartikel** prüfen, Beitragsbild hinzufügen, veröffentlichen
+6. **E-Mail-Versand:** ein SMTP-Plugin (z. B. „WP Mail SMTP“) mit dem eigenen Postfach verbinden
+7. Optional: **Design → Menüs**. Ohne eigenes Menü erscheint automatisch: Handwerk · Gastro · Leistungen · Pakete · Über mich · Blog
 
-## Texte anpassen
+## Dateien
 
-Alle Texte der Startseite stehen in `lynnzeischke/front-page.php`. Farben stehen oben in `lynnzeischke/style.css` (`--c-gold`, `--c-chrome`, `--c-bg`; dunkle Variante unter `[data-theme="dark"]`).
+```
+lynnzeischke/
+├── style.css, functions.php
+├── front-page.php, page-handwerk.php, page-gastro.php
+├── home.php, single.php, archive.php, search.php, page.php, index.php, 404.php, searchform.php
+├── header.php, footer.php
+├── inc/        content.php, seo.php, blog.php, setup.php, customizer.php, contact-form.php
+├── template-parts/  section-*.php, post-card.php, blog-*.php
+└── assets/     js/main.js, css/editor.css, fonts/ (IBM Plex Mono, Inter – SIL OFL)
+```

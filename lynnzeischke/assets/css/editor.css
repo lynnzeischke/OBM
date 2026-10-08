@@ -1,0 +1,8 @@
+/* Editor: gleiche Schriften wie auf der Website */
+@font-face { font-family: "IBM Plex Mono"; font-weight: 700; src: url("../fonts/ibm-plex-mono-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 400; src: url("../fonts/inter-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 600; src: url("../fonts/inter-latin-600-normal.woff2") format("woff2"); }
+body { font-family: "Inter", system-ui, sans-serif; font-size: 1.1rem; line-height: 1.8; color: #1d1b20; }
+h1, h2, h3, h4, .editor-post-title__input { font-family: "IBM Plex Mono", monospace; font-weight: 700; letter-spacing: -.01em; }
+a { color: #b5843a; }
+blockquote { border-left: 3px solid #daa84e; padding-left: 24px; font-family: "IBM Plex Mono", monospace; }

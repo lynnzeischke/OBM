@@ -51,6 +51,7 @@ function lz_handle_contact() {
 	$branche = isset( $_POST['lz_branche'] ) ? sanitize_text_field( wp_unslash( $_POST['lz_branche'] ) ) : '';
 	$message = isset( $_POST['lz_message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['lz_message'] ) ) : '';
 	$consent = ! empty( $_POST['lz_consent'] );
+	$source  = isset( $_POST['lz_source'] ) ? sanitize_text_field( wp_unslash( $_POST['lz_source'] ) ) : '';
 
 	if ( '' === $name || ! is_email( $email ) || '' === $message || ! $consent ) {
 		$fail( 'pflicht' );
@@ -58,7 +59,7 @@ function lz_handle_contact() {
 
 	$to      = lz_opt( 'email' );
 	$subject = sprintf( 'Neue Anfrage über lynnzeischke.de: %s', $name . ( $company ? ' (' . $company . ')' : '' ) );
-	$body    = "Name: {$name}\nBetrieb: {$company}\nBranche: {$branche}\nE-Mail: {$email}\nTelefon: {$phone}\n\nNachricht:\n{$message}\n\n---\nEinwilligung Datenschutz erteilt am " . wp_date( 'd.m.Y H:i' ) . ' Uhr.';
+	$body    = "Name: {$name}\nBetrieb: {$company}\nBranche: {$branche}\nE-Mail: {$email}\nTelefon: {$phone}\nGesendet von: {$source}\n\nNachricht:\n{$message}\n\n---\nEinwilligung Datenschutz erteilt am " . wp_date( 'd.m.Y H:i' ) . ' Uhr.';
 	$headers = array( 'Content-Type: text/plain; charset=UTF-8', 'Reply-To: ' . $name . ' <' . $email . '>' );
 
 	$sent = wp_mail( $to, $subject, $body, $headers );

@@ -17,15 +17,14 @@ function lz_defaults() {
 		'email'            => 'hallo@lynnzeischke.de',
 		'phone'            => '+49 172 58 611 60',
 		'whatsapp'         => true,
-		'brand_sub'        => 'Beratung für Handwerksbetriebe',
-		'hero_eyebrow'     => 'Beratung für Handwerksbetriebe · Remote · Deutschlandweit',
+		'brand_sub'        => 'Beratung für KMU, Handwerk & Gastro',
 		'hero_badge'       => 'Steuerfachangestellte · M.Sc. Digital Commerce, Marketing & Psychologie · Co-Founderin mit eigener Praxiserfahrung',
 		'region'           => 'Remote · deutschlandweit',
 		'calendly_url'     => '',
 		'call_times'       => 'Erstgespräch kostenfrei & unverbindlich – per Telefon oder Video.',
 		'hero_image'       => 0,
 		'about_image'      => 0,
-		'meta_description' => 'Weniger Büro. Mehr Zeit fürs Handwerk. Kaufmännische Beratung & operative Umsetzung für Handwerksbetriebe – von Website & Marketing über digitale Büroabläufe bis zur vorbereitenden Buchhaltung. Remote, deutschlandweit.',
+		'meta_description' => 'Weniger Büro, mehr Zeit fürs Kerngeschäft: Kaufmännische Beratung & operative Umsetzung für KMU, Handwerk und Gastronomie – von Website & Marketing über digitale Büroabläufe bis zur vorbereitenden Buchhaltung. Remote, deutschlandweit.',
 	);
 }
 
@@ -60,12 +59,11 @@ function lz_customize_register( $wp_customize ) {
 		'email'            => array( __( 'E-Mail (Empfänger Kontaktformular)', 'lynnzeischke' ), 'sanitize_email', 'email' ),
 		'phone'            => array( __( 'Telefon (auch für WhatsApp)', 'lynnzeischke' ), 'sanitize_text_field', 'text' ),
 		'brand_sub'        => array( __( 'Unterzeile neben dem Logo', 'lynnzeischke' ), 'sanitize_text_field', 'text' ),
-		'hero_eyebrow'     => array( __( 'Kasten über der großen Überschrift', 'lynnzeischke' ), 'sanitize_text_field', 'text' ),
 		'hero_badge'       => array( __( 'Dunkler Kasten auf dem Foto (Qualifikationen)', 'lynnzeischke' ), 'sanitize_textarea_field', 'textarea' ),
 		'region'           => array( __( 'Region / Einzugsgebiet', 'lynnzeischke' ), 'sanitize_text_field', 'text' ),
 		'calendly_url'     => array( __( 'Link zur Online-Terminbuchung (z. B. Calendly) – optional', 'lynnzeischke' ), 'esc_url_raw', 'url' ),
 		'call_times'       => array( __( 'Hinweis Erreichbarkeit', 'lynnzeischke' ), 'sanitize_text_field', 'text' ),
-		'meta_description' => array( __( 'Google-Beschreibung der Startseite', 'lynnzeischke' ), 'sanitize_textarea_field', 'textarea' ),
+		'meta_description' => array( __( 'Allgemeine Google-Beschreibung (Fallback & Unternehmensdaten)', 'lynnzeischke' ), 'sanitize_textarea_field', 'textarea' ),
 	);
 
 	foreach ( $text_fields as $key => $field ) {
@@ -137,7 +135,16 @@ function lz_booking_url() {
 	if ( $url ) {
 		return $url;
 	}
-	return is_front_page() ? '#kontakt' : home_url( '/#kontakt' );
+	if ( function_exists( 'lz_current_landing_key' ) && lz_current_landing_key() ) {
+		return '#kontakt';
+	}
+	if ( is_singular( 'post' ) || is_category() ) {
+		$cat = is_category() ? get_queried_object() : ( function_exists( 'lz_primary_category' ) ? lz_primary_category() : null );
+		if ( $cat && in_array( $cat->slug, array( 'handwerk', 'gastro' ), true ) ) {
+			return home_url( '/' . $cat->slug . '/#kontakt' );
+		}
+	}
+	return home_url( '/#kontakt' );
 }
 
 /**
